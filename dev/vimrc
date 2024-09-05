@@ -1,0 +1,11 @@
+" :PlugInstall > to install the plugins
+" :PlugUpdate  > to update the plugins
+" :PlugDiff    > to review changes from the last update
+" :PlugClean   > to remove plugins that were removed from the list
+call plug#begin()
+Plug 'dense-analysis/ale'
+Plug 'vim-airline/vim-airline'
+call plug#end()
+
+let g:ale_fixers = {'cpp': ['clang-format',]}
+let g:ale_fix_on_save = 1
