@@ -16,24 +16,25 @@ endif
 let colors_name = "e1c411f"
 
 
-hi Statement          ctermfg=cyan                cterm=none
-hi LineNr             ctermfg=darkgrey            cterm=none
-hi Comment            ctermfg=darkgreen           cterm=none
-hi PreProc            ctermfg=green               cterm=none
-hi Constant           ctermfg=darkcyan            cterm=none
-hi Identifier         ctermfg=darkcyan            cterm=italic
+hi Statement          ctermfg=14              cterm=none
+hi LineNr             ctermfg=8               cterm=none
+hi Comment            ctermfg=2               cterm=none
+hi PreProc            ctermfg=10              cterm=none
+hi Constant           ctermfg=6               cterm=none
+hi Identifier         ctermfg=6               cterm=italic
 
-hi Function           ctermfg=blue                cterm=none
-hi Type               ctermfg=blue                cterm=italic
+hi Function           ctermfg=12              cterm=none
+hi Type               ctermfg=12              cterm=italic
 
-hi cStorageClass      ctermfg=magenta             cterm=none
+hi cStorageClass      ctermfg=13              cterm=none
 
-hi cppNamespace       ctermfg=darkblue            cterm=none
+hi cppNamespace       ctermfg=4               cterm=none
+hi NormalFloat                    ctermbg=8   
+hi cppAttribute       ctermfg=11
 
 hi link cppSTLfunction Function
 hi link cInclude Comment
 hi link cIncluded PreProc
-
 
 " :so $VIMRUNTIME/syntax/hitest.vim
 " vim: sw=2
