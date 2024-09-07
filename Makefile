@@ -1,26 +1,29 @@
 # files
 # ---------------------------------------------------------------
 AUXFILES := Makefile README.md LICENSE
-PROJDIRS := lib
 
-SRCFILES := $(shell find $(PROJDIRS) -type f -name "*.cc")
-HDRFILES := $(shell find $(PROJDIRS) -type f -name "*.h")
+SRCDIR := src
+TSTDIR := tst
+
+SRCFILES := $(shell find $(SRCDIR) -type f -name "*.cc")
+SRCTSTFILES := $(shell find $(TSTDIR) -type f -name "*.cc")
+HDRFILES := $(shell find $(SRCDIR) -type f -name "*.h")
 
 OBJFILES := $(patsubst %.cc,%.o,$(SRCFILES))
-TSTFILES := $(patsubst %.cc,%_t,$(SRCFILES))
+TSTFILES := $(patsubst %.cc,%_t,$(SRCTSTFILES))
 
 DEPFILES := $(patsubst %.cc,%.d,$(SRCFILES))
 TDPFILES := $(patsubst %,%.d,$(TSTFILES))
 -include $(DEPFILES) $(TDPFILES)
 
-ALLFILES := $(SRCFILES) $(HDRFILES) $(AUXFILES)
+ALLFILES := $(SRCFILES) $(SRCTSTFILES) $(HDRFILES) $(AUXFILES)
 
 
 # compiler
 # ---------------------------------------------------------------
 CC := clang++
 CCWARN := -Wall -Wextra
-CCFLAGS := --std=c++20 $(CCWARN) -I$(PROJDIRS)
+CCFLAGS := --std=c++20 $(CCWARN) -I$(SRCDIR)
 
 # rules
 # ---------------------------------------------------------------
@@ -54,11 +57,11 @@ unittests: testfiles
 testfiles: $(TSTFILES)
 
 todolist:
-	-@for file in $(ALLFILES:Makefile=); do fgrep -H -e TODO -e FIXME $$file; done; true
+	-@for file in $(ALLFILES:Makefile=); do fgrep -H -e TODO $$file; done; true
 
 %.o: %.cc Makefile
 	@$(CC) $(CCFLAGS) -MMD -MP -c $< -o $@
 
 %_t: %.cc Makefile e0b204b9.a
-	@$(CC) $(CCFLAGS) -MMD -MP -DUNIT_TEST $< e0b204b9.a -o $@
+	@$(CC) $(CCFLAGS) -I$(TSTDIR) -MMD -MP $< e0b204b9.a -o $@
 
