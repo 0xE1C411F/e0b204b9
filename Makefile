@@ -20,19 +20,24 @@ ALLFILES := $(SRCFILES) $(HDRFILES) $(AUXFILES)
 # ---------------------------------------------------------------
 CC := clang++
 CCWARN := -Wall -Wextra
-CCFLAGS := --std=c++20 $(CCWARN)
+CCFLAGS := --std=c++20 $(CCWARN) -I$(PROJDIRS)
 
 # rules
 # ---------------------------------------------------------------
-.PHONY: clean package unittest testfiles todolist
+.PHONY: all clean dist unittests testfiles todolist
+
+all: e0b204b9.a
+
+e0b204b9.a: $(OBJFILES)
+	@ar r e0b204b9.a $?
 
 clean:
-	-@$(RM) $(wildcard $(OBJFILES) $(DEPFILES) $(TSTFILES) $(TDPFILES))
+	-@$(RM) $(wildcard $(OBJFILES) $(DEPFILES) $(TSTFILES) $(TDPFILES) e0b204b9.a e0b204b9.tgz)
 
-package:
+dist:
 	@tar czf e0b204b9.tgz $(ALLFILES)
 
-unittest: testfiles
+unittests: testfiles
 	-@rc=0; count=0;\
 		echo; echo "[TEST SESSION]"; echo;\
 		for file in $(TSTFILES);\
@@ -40,8 +45,8 @@ unittest: testfiles
 		sourcename=$${file::-2};\
 		echo -n "$$sourcename ";\
 		./$$file; outcome=`expr $$?`;\
-		[[ $$outcome == 0 ]] && echo "(passed)" || { echo -n "FAILED $$outcome error"; rc=`expr $$rc + 1`; };\
-		[[ $$outcome == 1 ]] && echo || echo s;\
+		[[ $$outcome == 0 ]] && echo -n "(passed)" || { echo -n "FAILED $$outcome error"; rc=`expr $$rc + 1`; };\
+		[[ $$outcome -le 1 ]] && echo || echo s;\
 		count=`expr $$count + 1`;\
 		done;\
 		echo; echo "[ERRORS] $$rc / $$count"
@@ -52,8 +57,8 @@ todolist:
 	-@for file in $(ALLFILES:Makefile=); do fgrep -H -e TODO -e FIXME $$file; done; true
 
 %.o: %.cc Makefile
-	@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
+	@$(CC) $(CCFLAGS) -MMD -MP -c $< -o $@
 
-%_t: %.cc Makefile
-	@$(CC) $(CFLAGS) -MMD -MP -DUNIT_TEST $< -o $@
+%_t: %.cc Makefile e0b204b9.a
+	@$(CC) $(CCFLAGS) -MMD -MP -DUNIT_TEST $< e0b204b9.a -o $@
 
