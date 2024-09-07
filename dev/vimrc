@@ -6,6 +6,7 @@ Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 colorscheme e1c411f
@@ -21,6 +22,15 @@ noremap n nzz
 noremap N Nzz
 
 nnoremap <silent> <Esc><Esc> :let @/ = ""<CR>
+
+inoremap <silent><expr> <TAB>
+  \ coc#pum#visible() ? coc#pum#next(1) :
+  \ Check_backspace() ? "\<Tab>" :
+  \ coc#refresh()
+function! Check_backspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1] =~# '\s'
+endfunction
 
 set wildmenu
 set noshowmode

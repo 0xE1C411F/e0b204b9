@@ -31,6 +31,7 @@ hi cStorageClass      ctermfg=13              cterm=none
 hi cppNamespace       ctermfg=4               cterm=none
 hi NormalFloat                    ctermbg=8   
 hi cppAttribute       ctermfg=11
+hi CocFloating                    ctermbg=8
 
 hi link cppSTLfunction Function
 hi link cInclude Comment
