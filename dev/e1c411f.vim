@@ -24,13 +24,13 @@ hi Constant           ctermfg=darkcyan            cterm=none
 hi Identifier         ctermfg=darkcyan            cterm=italic
 
 hi Function           ctermfg=blue                cterm=none
-hi Type               ctermfg=darkblue            cterm=italic
+hi Type               ctermfg=blue                cterm=italic
 
 hi cStorageClass      ctermfg=magenta             cterm=none
 
+hi cppNamespace       ctermfg=darkblue            cterm=none
 
 hi link cppSTLfunction Function
-hi link cppSTLnamespace Function
 hi link cInclude Comment
 hi link cIncluded PreProc
 
