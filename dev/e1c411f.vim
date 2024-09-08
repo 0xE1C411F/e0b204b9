@@ -37,7 +37,7 @@ hi CocFloating                         ctermbg=8
 
 hi NvimTreeGitDeletedIcon  ctermfg=9
 hi NvimTreeGitDirtyIcon    ctermfg=3
-hi NvimTreeGitIgnoredIcon  ctermfg=8
+hi NvimTreeGitIgnoredIcon  ctermfg=7
 hi NvimTreeGitMergeIcon    ctermfg=10
 hi NvimTreeGitNewIcon      ctermfg=10
 hi NvimTreeGitRenamedIcon  ctermfg=3
