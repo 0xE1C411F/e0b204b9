@@ -42,10 +42,15 @@ CCPERFTSTFLAGS := $(CCTESTFLAGS)
 
 # rules
 # ---------------------------------------------------------------
-.PHONY: all clean dist unittests perftests unittstfiles perftstfiles todolist
+.PHONY: all config dependencies clean dist unittests perftests unittstfiles perftstfiles todolist
 
 all: e0b204b9.a
 
+config:
+	@$(RM) -f compile_commands.json; $(MAKE) -s clean; bear -- $(MAKE) -s dependencies
+
+dependencies: all unittstfiles perftstfiles
+	
 e0b204b9.a: $(OBJFILES)
 	@ar r e0b204b9.a $?
 
