@@ -1,0 +1,10 @@
+.cache/
+
+compile_commands.json
+
+*.a
+*_ht
+*_ut
+*_pt
+*.d
+
