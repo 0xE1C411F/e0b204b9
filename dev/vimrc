@@ -12,6 +12,14 @@ call plug#end()
 colorscheme e1c411f
 let g:airline_theme='e1c411f'
 
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_tab_count = 2
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
 let g:ale_fixers = {'cpp': ['clang-format',]}
 let g:ale_fix_on_save = 1
 

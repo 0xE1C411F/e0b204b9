@@ -43,6 +43,19 @@ hi NvimTreeGitNewIcon      ctermfg=10
 hi NvimTreeGitRenamedIcon  ctermfg=3
 hi NvimTreeGitStagedIcon   ctermfg=6
 
+augroup HIGHLIGHT_TABLINE
+  autocmd!
+  autocmd User AirlineAfterInit hi airline_tab             ctermfg=7   ctermbg=8
+  autocmd User AirlineAfterInit hi airline_tab_right       ctermfg=7   ctermbg=8
+  autocmd User AirlineAfterInit hi airline_tabmod_unsel    ctermfg=7   ctermbg=8
+  autocmd User AirlineAfterInit hi airline_tabfill         ctermfg=7   ctermbg=8
+
+  autocmd User AirlineAfterInit hi airline_tabsel          ctermfg=15  ctermbg=4
+  autocmd User AirlineAfterInit hi airline_tabsel_right    ctermfg=15  ctermbg=4
+  autocmd User AirlineAfterInit hi airline_tabmod          ctermfg=15  ctermbg=4
+  autocmd User AirlineAfterInit hi airline_tabmod_right    ctermfg=15  ctermbg=4
+augroup END
+
 hi link cppSTLfunction Function
 hi link cInclude Comment
 hi link cIncluded PreProc

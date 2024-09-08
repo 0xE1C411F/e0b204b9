@@ -27,3 +27,4 @@ let g:airline#themes#e1c411f#palette.visual = airline#themes#generate_color_map(
 let g:airline#themes#e1c411f#palette.replace = airline#themes#generate_color_map(s:RE, s:S2, s:S3)
 let g:airline#themes#e1c411f#palette.commandline = airline#themes#generate_color_map(s:CO, s:S2, s:S3)
 let g:airline#themes#e1c411f#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
+
