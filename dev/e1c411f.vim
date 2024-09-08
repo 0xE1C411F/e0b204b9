@@ -15,27 +15,36 @@ endif
 
 let colors_name = "e1c411f"
 
+hi WinSeparator            ctermfg=8   ctermbg=8
+hi EndOfBuffer             ctermfg=0 
 
-hi Statement          ctermfg=14              cterm=none
-hi LineNr             ctermfg=8               cterm=none
-hi Comment            ctermfg=2               cterm=none
-hi PreProc            ctermfg=10              cterm=none
-hi Constant           ctermfg=6               cterm=none
-hi Identifier         ctermfg=6               cterm=italic
+hi Statement               ctermfg=14              cterm=none
+hi LineNr                  ctermfg=8               cterm=none
+hi Comment                 ctermfg=2               cterm=none
+hi PreProc                 ctermfg=10              cterm=none
+hi Constant                ctermfg=6               cterm=none
+hi Identifier              ctermfg=6               cterm=italic
 
-hi Function           ctermfg=12              cterm=none
-hi Type               ctermfg=12              cterm=italic
+hi Function                ctermfg=12              cterm=none
+hi Type                    ctermfg=12              cterm=italic
 
-hi cStorageClass      ctermfg=13              cterm=none
+hi cStorageClass           ctermfg=13              cterm=none
 
-hi cppNamespace       ctermfg=4               cterm=none
-hi NormalFloat                    ctermbg=8   
-hi cppAttribute       ctermfg=11
-hi CocFloating                    ctermbg=8
+hi cppNamespace            ctermfg=4               cterm=none
+hi NormalFloat                         ctermbg=8   
+hi cppAttribute            ctermfg=11
+hi CocFloating                         ctermbg=8
+
+hi NvimTreeGitDeletedIcon  ctermfg=9
+hi NvimTreeGitDirtyIcon    ctermfg=3
+hi NvimTreeGitIgnoredIcon  ctermfg=8
+hi NvimTreeGitMergeIcon    ctermfg=10
+hi NvimTreeGitNewIcon      ctermfg=10
+hi NvimTreeGitRenamedIcon  ctermfg=3
+hi NvimTreeGitStagedIcon   ctermfg=6
 
 hi link cppSTLfunction Function
 hi link cInclude Comment
 hi link cIncluded PreProc
-
 " :so $VIMRUNTIME/syntax/hitest.vim
 " vim: sw=2
