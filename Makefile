@@ -54,8 +54,11 @@ dependencies: all unittstfiles perftstfiles
 e0b204b9.a: $(OBJFILES)
 	@ar r e0b204b9.a $?
 
+$(HELPTSTDIR)/e0b204b9_th.a: $(HELPTSTFILES)
+	@ar r $(HELPTSTDIR)/e0b204b9_th.a $?
+
 clean:
-	-@$(RM) $(wildcard $(OBJFILES) $(DEPFILES) $(TSTFILES) $(TDPFILES) e0b204b9.a e0b204b9.tgz)
+	-@$(RM) $(wildcard $(OBJFILES) $(DEPFILES) $(TSTFILES) $(TDPFILES) e0b204b9.a $(HELPTSTDIR)/e0b204b9_th.a e0b204b9.tgz)
 
 dist:
 	@tar czf e0b204b9.tgz $(ALLFILES)
@@ -96,11 +99,11 @@ todolist:
 %.o: %.cc Makefile
 	@$(CC) $(CCFLAGS) -MMD -MP -c $< -o $@
 
-%_ut: %.cc Makefile e0b204b9.a
-	@$(CC) $(CCFLAGS) $(CCUNITTSTFLAGS) -MMD -MP $< e0b204b9.a -o $@
+%_ut: %.cc Makefile e0b204b9.a $(HELPTSTDIR)/e0b204b9_th.a
+	@$(CC) $(CCFLAGS) $(CCUNITTSTFLAGS) -MMD -MP $< e0b204b9.a $(HELPTSTDIR)/e0b204b9_th.a -o $@
 
-%_pt: %.cc Makefile e0b204b9.a
-	@$(CC) $(CCFLAGS) $(CCPERFTSTFLAGS) -MMD -MP $< e0b204b9.a -o $@
+%_pt: %.cc Makefile e0b204b9.a $(HELPTSTDIR)/e0b204b9_th.a
+	@$(CC) $(CCFLAGS) $(CCPERFTSTFLAGS) -MMD -MP $< e0b204b9.a $(HELPTSTDIR)/e0b204b9_th.a -o $@
 
 %_ht: %.cc Makefile e0b204b9.a
-	@$(CC) $(CCFLAGS) $(CCPERFTSTFLAGS) -MMD -MP $< e0b204b9.a -o $@
+	@$(CC) $(CCFLAGS) $(CCPERFTSTFLAGS) -MMD -MP -c $< e0b204b9.a -o $@
