@@ -1,6 +1,6 @@
 #include <stdexcept>
 #include "core/exceptions.h"
-#include "helpers/test_session.h"
+#include "helpers/test_session_fakefile.h"
 
 bool test_invalid_require() {
   try {
