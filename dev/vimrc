@@ -9,6 +9,7 @@ Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
+set colorcolumn=120
 colorscheme e1c411f
 let g:airline_theme='e1c411f'
 
@@ -21,6 +22,7 @@ let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 let g:ale_fixers = {'cpp': ['clang-format',]}
+let g:ale_cpp_cc_options = ''
 let g:ale_fix_on_save = 1
 
 set incsearch

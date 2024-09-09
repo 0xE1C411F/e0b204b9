@@ -47,7 +47,7 @@ CCPERFTSTFLAGS := $(CCTESTFLAGS)
 all: e0b204b9.a
 
 config:
-	@$(RM) -f compile_commands.json; $(MAKE) -s clean; bear -- $(MAKE) -s dependencies
+	@$(RM) -f compile_commands.json; $(MAKE) -s clean; bear -- $(MAKE) -s dependencies; $(MAKE) -s clean
 
 dependencies: all unittstfiles perftstfiles
 	

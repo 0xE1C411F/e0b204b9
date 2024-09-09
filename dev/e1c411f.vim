@@ -16,6 +16,7 @@ endif
 let colors_name = "e1c411f"
 
 hi WinSeparator            ctermfg=8   ctermbg=8
+hi ColorColumn                         ctermbg=8   cterm=none
 hi EndOfBuffer             ctermfg=0 
 
 hi Statement               ctermfg=14              cterm=none
