@@ -13,7 +13,10 @@ jobs:
     - uses: actions/checkout@v4
     - name: make
       run: make
+      shell: zsh {0}
     - name: unittests
       run: make unittests
+      shell: zsh {0}
     - name: perftests
       run: make perftests
+      shell: zsh {0}
