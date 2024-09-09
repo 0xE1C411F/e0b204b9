@@ -1,14 +1,12 @@
 name: PR pipeline
 
 on:
-  push:
-    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
 jobs:
   build:
-
+    name: pull_request_pipeline
     runs-on: ubuntu-latest
 
     steps:
