@@ -1,5 +1,7 @@
 #!/bin/sh
 
+/bin/sh --version
+
 for argument in "$@"
 do
   [[ "$argument" =~ \-\-type=(.*) ]] && test_type=${BASH_REMATCH[1]}
