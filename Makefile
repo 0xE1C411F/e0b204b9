@@ -65,10 +65,10 @@ dist:
 	@tar czf e0b204b9.tgz $(ALLFILES)
 
 unittests: unittstfiles
-	-@./$(SCRIPTSDIR)/run_tests --type=unit $(UNITTSTFILES)
+	@./$(SCRIPTSDIR)/run_tests --type=unit $(UNITTSTFILES)
 
 perftests: perftstfiles
-	-@./$(SCRIPTSDIR)/run_tests --type=perf $(PERFTSTFILES)
+	@./$(SCRIPTSDIR)/run_tests --type=perf $(PERFTSTFILES)
 
 unittstfiles: $(UNITTSTFILES) $(HELPTSTFILES)
 
