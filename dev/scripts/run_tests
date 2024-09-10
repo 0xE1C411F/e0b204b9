@@ -1,0 +1,33 @@
+#!/bin/sh
+
+for argument in "$@"
+do
+  [[ "$argument" =~ \-\-type=(.*) ]] && test_type=${BASH_REMATCH[1]}
+done
+
+case $test_type in
+  unit)
+    echo "[UNIT TESTS]"
+    ;;
+  perf)
+    echo "[PERFORMANCE TESTS]"
+    ;;
+  "")
+    echo "[ERROR] Provide a test type with --type="
+    exit 1
+    ;;
+  *)
+    echo "[ERROR] $test_type is not a valid test type"
+    exit 1
+esac
+
+errors=0
+for argument in "$@"
+do
+  [[ "$argument" =~ \-\-type=(.*) ]] || { 
+    ./$argument
+    errors=$(($errors + $?))
+  }
+done
+
+[[ $errors -eq 0 ]] && { echo "PASSED"; exit 0; } || { echo "FAILED ($errors)"; exit 1; }

@@ -4,6 +4,7 @@ AUXFILES := Makefile README.md LICENSE
 
 SRCDIR := src
 TSTDIR := tests
+SCRIPTSDIR := dev/scripts
 HELPTSTDIR := $(TSTDIR)/helpers
 UNITTSTDIR := $(TSTDIR)/unit
 PERFTSTDIR := $(TSTDIR)/perf
@@ -64,30 +65,10 @@ dist:
 	@tar czf e0b204b9.tgz $(ALLFILES)
 
 unittests: unittstfiles
-	-@rc=0; count=0;\
-		echo; echo "[UNIT TEST SESSION]"; echo;\
-		for file in $(UNITTSTFILES);\
-		do echo -n " > ";\
-		echo -n "$$file ";\
-		./$$file; outcome=`expr $$?`;\
-		[[ $$outcome == 0 ]] && echo -n "(passed)" || { echo -n "FAILED $$outcome error"; rc=`expr $$rc + 1`; };\
-		[[ $$outcome -le 1 ]] && echo || echo s;\
-		count=`expr $$count + 1`;\
-		done;\
-		echo; echo "[ERRORS] $$rc / $$count"
+	-@./$(SCRIPTSDIR)/run_tests --type=unit $(UNITTSTFILES)
 
 perftests: perftstfiles
-	-@rc=0; count=0;\
-		echo; echo "[PERF TEST SESSION]"; echo;\
-		for file in $(PERFTSTFILES);\
-		do echo -n " > ";\
-		echo -n "$$file ";\
-		./$$file; outcome=`expr $$?`;\
-		[[ $$outcome == 0 ]] && echo -n "(passed)" || { echo -n "FAILED $$outcome error"; rc=`expr $$rc + 1`; };\
-		[[ $$outcome -le 1 ]] && echo || echo s;\
-		count=`expr $$count + 1`;\
-		done;\
-		echo; echo "[ERRORS] $$rc / $$count"
+	-@./$(SCRIPTSDIR)/run_tests --type=perf $(PERFTSTFILES)
 
 unittstfiles: $(UNITTSTFILES) $(HELPTSTFILES)
 
