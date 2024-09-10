@@ -1,6 +1,4 @@
-#!/bin/sh
-
-/bin/sh --version
+#!/bin/bash
 
 for argument in "$@"
 do
