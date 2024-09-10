@@ -1,8 +1,8 @@
-#include <stdexcept>
 #include "core/exceptions.h"
+#include <stdexcept>
 #include "helpers/test_session.h"
 
-bool test_invalid_require() {
+bool throwing_require() {
   try {
     core::require(0 > 1);
   } catch (std::invalid_argument const& ex) {
@@ -11,7 +11,7 @@ bool test_invalid_require() {
   return false;
 }
 
-bool test_valid_require() {
+bool satisfied_require() {
   try {
     core::require(1 > 0);
   } catch (std::invalid_argument const& ex) {
@@ -22,7 +22,7 @@ bool test_valid_require() {
 
 int main() {
   return helpers::run_test_session({
-      test_invalid_require,
-      test_valid_require,
+      TEST_FUNCTION(throwing_require),
+      TEST_FUNCTION(satisfied_require),
   });
 }
