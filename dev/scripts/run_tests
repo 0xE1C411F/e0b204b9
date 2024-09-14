@@ -7,10 +7,14 @@ done
 
 case $test_type in
   unit)
-    echo "[UNIT TESTS]"
+    echo -e "\033[94m┌          ┐"
+    echo -e "\033[94m╡UNIT TESTS╞═══════════════════════════════════════════════════════════════════"
+    echo -e "\033[94m└          ┘\033[0m"
     ;;
   perf)
-    echo "[PERFORMANCE TESTS]"
+    echo -e "\033[94m┌                 ┐"
+    echo -e "\033[94m╡PERFORMANCE TESTS╞════════════════════════════════════════════════════════════"
+    echo -e "\033[94m└                 ┘\033[0m"
     ;;
   "")
     echo "[ERROR] Provide a test type with --type="
@@ -25,9 +29,19 @@ errors=0
 for argument in "$@"
 do
   [[ "$argument" =~ \-\-type=(.*) ]] || { 
+    echo
+    echo -e "\033[94m$argument\033[0m"
     ./$argument
     errors=$(($errors + $?))
   }
 done
 
-[[ $errors -eq 0 ]] && { echo "PASSED"; exit 0; } || { echo "FAILED ($errors)"; exit 1; }
+echo -e "\033[94m═══════════════════════════════════════════════════════════════════════════════\033[0m"
+[[ $errors -eq 0 ]] && {
+  echo -e "  \033[32;1mPASSED\033[0m"
+  exit 0
+} || { 
+  echo -e "  \033[31;1mFAILED ($errors)\033[0m"
+  echo
+  exit 1
+}
