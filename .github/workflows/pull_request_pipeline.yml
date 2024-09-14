@@ -6,14 +6,14 @@ on:
 
 jobs:
   build:
-    name: pull_request_pipeline
+    name: PR pipeline
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
-    - name: make
+    - name: Make all
       run: make
-    - name: unittests
+    - name: Run unit tests
       run: make unittests
-    - name: perftests
+    - name: Run performance tests
       run: make perftests
