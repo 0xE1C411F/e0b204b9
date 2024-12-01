@@ -31,18 +31,18 @@ constexpr int last_day_of_month(int month, int year = 1) noexcept {
  * The implementation is based on the paper by Howard Hinnant on designing a chrono-compatible date library
  * (howardhinnant.github.io/date_algorithms.html), although this class does not implement chrono-compatibility.
  */
-class datetime {
+class Datetime {
  private:
-  /* the internal representation of a datetime is two ints, one for the date and one for the time */
+  /* the internal representation of a Datetime is two ints, one for the date and one for the time */
   int serial_date;
   int time_ms;
 
  public:
-  constexpr datetime(int serial_date = 0, int time_ms = 0) : serial_date{serial_date}, time_ms{time_ms} {};
+  constexpr Datetime(int serial_date = 0, int time_ms = 0) : serial_date{serial_date}, time_ms{time_ms} {};
   /**
-   * Construct a datetime object from a civil calendar representation
+   * Construct a Datetime object from a civil calendar representation
    */
-  constexpr datetime(int year, int month, int day, int hour = 0, int minute = 0, int second = 0, int millisecond = 0)
+  constexpr Datetime(int year, int month, int day, int hour = 0, int minute = 0, int second = 0, int millisecond = 0)
       : serial_date{0}, time_ms{0} {
     core::require((year >= 0) && (year <= 100'000), "year is not in valid range [0, 100'000]");
     core::require((month >= 1) && (month <= 12), "month is not in valid range [1, 12]");
@@ -109,57 +109,57 @@ class datetime {
   }
 
   /**
-   * Subtract two datetimes to get the number of days
+   * Subtract two Datetimes to get the number of days
    */
-  friend constexpr double operator-(const datetime& left_hand_side, const datetime& right_hand_side) noexcept {
+  friend constexpr double operator-(const Datetime& left_hand_side, const Datetime& right_hand_side) noexcept {
     return left_hand_side.serial_date - right_hand_side.serial_date +
            (left_hand_side.time_ms - right_hand_side.time_ms) / (double)MILLISECONDS_IN_DAY;
   };
 
   /**
-   * Add n days to datetime
+   * Add n days to Datetime
    */
-  friend constexpr datetime operator+(const datetime& left_hand_side, int right_hand_side) noexcept {
-    return datetime{left_hand_side.serial_date + right_hand_side, left_hand_side.time_ms};
+  friend constexpr Datetime operator+(const Datetime& left_hand_side, int right_hand_side) noexcept {
+    return Datetime{left_hand_side.serial_date + right_hand_side, left_hand_side.time_ms};
   };
   /**
-   * Add n days to datetime
+   * Add n days to Datetime
    */
-  friend constexpr datetime operator+(int left_hand_side, const datetime& right_hand_side) noexcept {
+  friend constexpr Datetime operator+(int left_hand_side, const Datetime& right_hand_side) noexcept {
     return right_hand_side + left_hand_side;
   };
 
   /**
-   * Subtract n days from datetime
+   * Subtract n days from Datetime
    */
-  friend constexpr datetime operator-(const datetime& left_hand_side, int right_hand_side) noexcept {
-    return datetime{left_hand_side.serial_date - right_hand_side, left_hand_side.time_ms};
+  friend constexpr Datetime operator-(const Datetime& left_hand_side, int right_hand_side) noexcept {
+    return Datetime{left_hand_side.serial_date - right_hand_side, left_hand_side.time_ms};
   };
 
   /**
-   * Compare datetimes
+   * Compare Datetimes
    */
-  friend constexpr bool operator==(const datetime& left_hand_side, const datetime& right_hand_side) noexcept {
+  friend constexpr bool operator==(const Datetime& left_hand_side, const Datetime& right_hand_side) noexcept {
     return (left_hand_side.serial_date == right_hand_side.serial_date) &&
            (left_hand_side.time_ms == right_hand_side.time_ms);
   };
-  friend constexpr bool operator!=(const datetime& left_hand_side, const datetime& right_hand_side) noexcept {
+  friend constexpr bool operator!=(const Datetime& left_hand_side, const Datetime& right_hand_side) noexcept {
     return !(left_hand_side == right_hand_side);
   };
-  friend constexpr bool operator>=(const datetime& left_hand_side, const datetime& right_hand_side) noexcept {
+  friend constexpr bool operator>=(const Datetime& left_hand_side, const Datetime& right_hand_side) noexcept {
     return (left_hand_side.serial_date > right_hand_side.serial_date) ||
            ((left_hand_side.serial_date == right_hand_side.serial_date) &&
             (left_hand_side.time_ms >= right_hand_side.time_ms));
   };
-  friend constexpr bool operator<(const datetime& left_hand_side, const datetime& right_hand_side) noexcept {
+  friend constexpr bool operator<(const Datetime& left_hand_side, const Datetime& right_hand_side) noexcept {
     return !(left_hand_side >= right_hand_side);
   };
-  friend constexpr bool operator<=(const datetime& left_hand_side, const datetime& right_hand_side) noexcept {
+  friend constexpr bool operator<=(const Datetime& left_hand_side, const Datetime& right_hand_side) noexcept {
     return (left_hand_side.serial_date < right_hand_side.serial_date) ||
            ((left_hand_side.serial_date == right_hand_side.serial_date) &&
             (left_hand_side.time_ms <= right_hand_side.time_ms));
   };
-  friend constexpr bool operator>(const datetime& left_hand_side, const datetime& right_hand_side) noexcept {
+  friend constexpr bool operator>(const Datetime& left_hand_side, const Datetime& right_hand_side) noexcept {
     return !(left_hand_side <= right_hand_side);
   };
 };
@@ -167,11 +167,11 @@ class datetime {
 }  // namespace chrono
 
 /**
- * Display datetime
+ * Display Datetime
  */
-inline std::ostream& operator<<(std::ostream& ostream, const chrono::datetime& datetime) {
-  const auto [civil_year, civil_month, civil_day] = datetime.civil_date();
-  const auto [hour, minute, second, millisecond] = datetime.time();
+inline std::ostream& operator<<(std::ostream& ostream, const chrono::Datetime& Datetime) {
+  const auto [civil_year, civil_month, civil_day] = Datetime.civil_date();
+  const auto [hour, minute, second, millisecond] = Datetime.time();
   ostream << civil_year << '-' << std::setfill('0') << std::setw(2) << civil_month << '-' << std::setfill('0')
           << std::setw(2) << civil_day << "T" << std::setfill('0') << std::setw(2) << hour << ":" << std::setfill('0')
           << std::setw(2) << minute << ":" << std::setfill('0') << std::setw(2) << second << "." << std::setfill('0')

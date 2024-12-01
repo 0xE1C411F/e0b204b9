@@ -2,9 +2,9 @@
 #include <algorithm>
 
 namespace chrono {
-double year_fraction_actual_actual(const datetime start, const datetime end) {
-  datetime true_start = std::min(start, end);
-  datetime true_end;
+double year_fraction_actual_actual(const Datetime start, const Datetime end) {
+  Datetime true_start = std::min(start, end);
+  Datetime true_end;
   double multiplier;
   if (true_start == start) {
     true_end = end;
@@ -28,8 +28,8 @@ double year_fraction_actual_actual(const datetime start, const datetime end) {
   if (years_difference == 0) {
     first_year_diff = true_end - true_start;
   } else {
-    first_year_diff = datetime(start_year + 1, 1, 1) - true_start;
-    last_year_diff = true_end - datetime(end_year, 1, 1);
+    first_year_diff = Datetime(start_year + 1, 1, 1) - true_start;
+    last_year_diff = true_end - Datetime(end_year, 1, 1);
     last_year_days += is_leap(end_year);
     years_between = years_difference - 1;
   }

@@ -7,7 +7,7 @@ namespace chrono {
 /**
  * Return year fraction with Act/Act convention
  */
-double year_fraction_actual_actual(const datetime start, const datetime end);
+double year_fraction_actual_actual(const Datetime start, const Datetime end);
 }  // namespace chrono
 
 #endif
