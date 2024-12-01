@@ -6,5 +6,5 @@ compile_commands.json
 *_ht
 *_ut
 *_pt
-*.d
+*.plist
 

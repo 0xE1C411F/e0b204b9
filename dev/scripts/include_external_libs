@@ -1,0 +1,17 @@
+#!/bin/bash
+extension=${1:(-3)}
+if [ "$extension" = ".cc" ]; then
+  dependency_file=$(echo "$1" | sed -e "s/.cc$/.d/")
+  if [ -f $dependency_file ]; then
+    external_includes=""
+    cat $dependency_file | (while read line
+    do
+      new_part=" -I$ANGUIS_ACTIVE_ENV/$line/include"
+      new_part="$new_part -L$ANGUIS_ACTIVE_ENV/$line/lib"
+      new_part="$new_part -l$line"
+      new_part="$new_part -rpath $ANGUIS_ACTIVE_ENV/$line/lib"
+      external_includes=$external_includes$new_part
+    done
+    echo "$external_includes")
+  fi
+fi

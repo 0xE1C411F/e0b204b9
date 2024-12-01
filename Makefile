@@ -24,10 +24,7 @@ HELPTSTFILES := $(patsubst %.cc,%_ht,$(SRCHELPTSTFILES))
 UNITTSTFILES := $(patsubst %.cc,%_ut,$(SRCUNITTSTFILES))
 PERFTSTFILES := $(patsubst %.cc,%_pt,$(SRCPERFTSTFILES))
 TSTFILES := $(HELPTSTFILES) $(UNITTSTFILES) $(PERFTSTFILES)
-
-DEPFILES := $(patsubst %.cc,%.d,$(SRCFILES))
-TDPFILES := $(patsubst %,%.d,$(TSTFILES))
--include $(DEPFILES) $(TDPFILES)
+PROPFILES := $(shell find . -type f -name "*.plist")
 
 ALLFILES := $(SRCFILES) $(SRCTSTFILES) $(HDRFILES) $(HDRTSTFILES) $(AUXFILES)
 
@@ -59,7 +56,7 @@ $(HELPTSTDIR)/e0b204b9_th.a: $(HELPTSTFILES)
 	@ar r $(HELPTSTDIR)/e0b204b9_th.a $?
 
 clean:
-	-@$(RM) $(wildcard $(OBJFILES) $(DEPFILES) $(TSTFILES) $(TDPFILES) e0b204b9.a $(HELPTSTDIR)/e0b204b9_th.a e0b204b9.tgz)
+	-@$(RM) $(wildcard $(OBJFILES) $(TSTFILES) $(PROPFILES) e0b204b9.a $(HELPTSTDIR)/e0b204b9_th.a e0b204b9.tgz)
 
 dist:
 	@tar czf e0b204b9.tgz $(ALLFILES)
@@ -78,13 +75,13 @@ todolist:
 	-@for file in $(ALLFILES:Makefile=); do fgrep -H -e TODO $$file; done; true
 
 %.o: %.cc Makefile
-	@$(CC) $(CCFLAGS) -MMD -MP -c $< -o $@
+	@$(CC) $(CCFLAGS) -c $< -o $@ $(shell ./$(SCRIPTSDIR)/include_external_libs $<)
 
 %_ut: %.cc Makefile e0b204b9.a $(HELPTSTDIR)/e0b204b9_th.a
-	@$(CC) $(CCFLAGS) $(CCUNITTSTFLAGS) -MMD -MP $< e0b204b9.a $(HELPTSTDIR)/e0b204b9_th.a -o $@
+	@$(CC) $(CCFLAGS) $(CCUNITTSTFLAGS) $< e0b204b9.a $(HELPTSTDIR)/e0b204b9_th.a -o $@
 
 %_pt: %.cc Makefile e0b204b9.a $(HELPTSTDIR)/e0b204b9_th.a
-	@$(CC) $(CCFLAGS) $(CCPERFTSTFLAGS) -MMD -MP $< e0b204b9.a $(HELPTSTDIR)/e0b204b9_th.a -o $@
+	@$(CC) $(CCFLAGS) $(CCPERFTSTFLAGS) $< e0b204b9.a $(HELPTSTDIR)/e0b204b9_th.a -o $@
 
 %_ht: %.cc Makefile e0b204b9.a
-	@$(CC) $(CCFLAGS) $(CCPERFTSTFLAGS) -MMD -MP -c $< e0b204b9.a -o $@
+	@$(CC) $(CCFLAGS) $(CCPERFTSTFLAGS) -c $< e0b204b9.a -o $@
